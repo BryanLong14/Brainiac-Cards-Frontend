@@ -36,11 +36,15 @@ class App extends Component {
           HighSchoolFlashcards: response.HighSchoolFlashcards,
           UserFlashCards: response.UserFlashCards
         });
+        console.log(response.highschool_flashcards[8])
+        console.log(response.highschool_flashcards)
       })
       .catch(err => console.error(err));
   }
 
   componentDidMount() {
+    console.log(this.state)
+    // The above line logs empty arrays, so the response is not being passed correctly
     this.getFlashcardData();
   }
 
