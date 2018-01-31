@@ -1,3 +1,45 @@
+# Flashcards App
+
+## Playing Modes:
+1. Top 100 Words All High Schoolers Should Know
+  Front side of the flashcard = Vocabulary Word. Swipe or click to go to the back of the card.
+  Back side of the flashcard = definition, synonyms, and part of speech.
+    Rate Yourself: Buttons:
+        1: I have this word memorized,
+        2: I know this word, but don't have it memorized,
+        3: I do not know the definition of this word
+
+
+2. User Inputted Words
+
+
+## Naming Conventions for Tower
+Database Name: flashcards_app
+Table 1 name: highschool_flashcards
+	singular: highschool_flashcard
+	seed: 01_highschool_flashcards
+
+Table 2 name: teachers_flashcards
+	singular: teachers_flashcard
+	seed: 01_teachers_flashcard
+
+
+## Galvanize Tower Readme
+In this project, you'll build a full-stack application that has an API, reads and writes data, and uses a library. The topic is up to you!
+
+
+## Requirements
+* Has an API that can list, read, update, create, and delete data
+* Has a database backing that API that has at least 2 different tables
+* Has a front-end that uses a application framework (React) or component library that:
+    * Consumes your API (list, read, update, create, and delete actions)
+    * Uses some non-trivial (charting, mapping, payment, etc.) library (Handsontable)
+    * Has at least 2 end-to-end tests
+
+Add a link to your [deployed front-end URL](), your [deployed API URL](), and any [code repos you used]().
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
@@ -300,7 +342,7 @@ In the WebStorm menu `Run` select `Edit Configurations...`. Then click `+` and s
 
 Start your app by running `npm start`, then press `^D` on macOS or `F9` on Windows and Linux or click the green debug icon to start debugging in WebStorm.
 
-The same way you can debug your application in IntelliJ IDEA Ultimate, PhpStorm, PyCharm Pro, and RubyMine. 
+The same way you can debug your application in IntelliJ IDEA Ultimate, PhpStorm, PyCharm Pro, and RubyMine.
 
 ## Formatting Code Automatically
 
@@ -1989,7 +2031,7 @@ If you’re using [Apache HTTP Server](https://httpd.apache.org/), you need to c
     RewriteRule ^ index.html [QSA,L]
 ```
 
-It will get copied to the `build` folder when you run `npm run build`. 
+It will get copied to the `build` folder when you run `npm run build`.
 
 If you’re using [Apache Tomcat](http://tomcat.apache.org/), you need to follow [this Stack Overflow answer](https://stackoverflow.com/a/41249464/4878474).
 
@@ -2418,7 +2460,7 @@ To resolve this:
 1. Open an issue on the dependency's issue tracker and ask that the package be published pre-compiled.
   * Note: Create React App can consume both CommonJS and ES modules. For Node.js compatibility, it is recommended that the main entry point is CommonJS. However, they can optionally provide an ES module entry point with the `module` field in `package.json`. Note that **even if a library provides an ES Modules version, it should still precompile other ES6 features to ES5 if it intends to support older browsers**.
 
-2. Fork the package and publish a corrected version yourself. 
+2. Fork the package and publish a corrected version yourself.
 
 3. If the dependency is small enough, copy it to your `src/` folder and treat it as application code.
 
