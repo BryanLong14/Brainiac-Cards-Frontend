@@ -1,4 +1,8 @@
 # Flashcards App
+1. To get the app running, cd into the backend folder and run: `npm start`. Navigate the browser to http://localhost:8080/
+2. In another iTerm tab, cd into the frontend folder and run: `npm start`. This will launch http://localhost:3000/ and take you to the frontend build of the site.
+
+
 
 ## Playing Modes:
 1. Top 100 Words All High Schoolers Should Know
