@@ -60,7 +60,7 @@ class App extends Component {
       // {this.state.current}
       // On line above: How to pull in the card name?
       >
-        very popover. such engagement
+        Shows Synonyms
       </Popover>
     )
 
