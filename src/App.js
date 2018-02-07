@@ -1,10 +1,9 @@
 // Import required React Bootstrap components within src/App.js file or your  component files:
 import { Navbar, Jumbotron, Button, ButtonGroup, Modal, Popover, OverlayTrigger } from 'react-bootstrap';
-
 import React, { Component } from "react"
 import "./App.css"
 import CardViewer from "./components/CardViewer"
-
+// import addWordsTable from "./components/addWordsTable";
 var databaseURL = "https://sleepy-sea-27116.herokuapp.com"
 
 class App extends Component {
@@ -14,7 +13,8 @@ class App extends Component {
 			cards: [],
 			userCards: [],
       scores: [],
-      current: {}
+      current: {},
+
 		}
 		this.getFlashcardData = this.getFlashcardData.bind(this);
     this.handleShow = this.handleShow.bind(this);
@@ -23,11 +23,9 @@ class App extends Component {
           show: false
         };
       }
-
       handleClose() {
         this.setState({ show: false });
       }
-
       handleShow() {
         this.setState({ show: true });
       }
@@ -54,41 +52,54 @@ class App extends Component {
     this.setState({current:card})
   }
 
+  addScore = (word, score) => {
+    this.state.scores[word]=score
+    this.setState({scores:this.state.scores})
+  }
+
 	render() {
-    const popover = (
-      <Popover id="modal-popover" title="Synonym for "
+    console.log(this.state.current);
+    
+    const popover = (      
+
+      <Popover id="modal-popover" title={`The word is ${this.state.current ? this.state.current.word: " "}`}
+
       // {this.state.current}
       // On line above: How to pull in the card name?
-      >
-        Shows Synonyms
-      </Popover>
+      >{this.state.current ? this.state.current.synonyms.split(/\s?,\s?/)[0] : "No synonym"}</Popover>
     )
 
-		return (
-			<div className="App">
-      <Jumbotron><h1 className="App-title">Brainiac Cards</h1></Jumbotron>
+		return <div className="App">
+        <Jumbotron>
+          <h1 className="App-title">Brainiac Cards</h1>
+        </Jumbotron>
         <Button bsStyle="primary" bsSize="large" onClick={this.handleShow}>
           100 Words Every High School Graduate Should Know
         </Button>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Body>
             <CardViewer card={this.state.current} />
-            <hr/>
-            <h4>Want to see a hint? There is a{' '}
-              <OverlayTrigger overlay={popover}>
+            <hr />
+            <h4>
+              Want to see a hint? There is a <OverlayTrigger overlay={popover}>
                 <a href="#popover">synonym</a>
-              </OverlayTrigger>{' '}
-              here
+              </OverlayTrigger> here
             </h4>
-            <Button bsStyle="primary" onClick={this.randomizer}>Next Card</Button>
-
+            <Button bsStyle="primary" onClick={() => addScore(this.state.current.word, 1)}>
+              1
+            </Button>
+            <Button bsStyle="primary" onClick={() => addScore(this.state.current.word, 2)}>
+              2
+            </Button>
+            <Button bsStyle="primary" onClick={() => addScore(this.state.current.word, 3)}>
+              3
+            </Button>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.handleClose}>Close</Button>
           </Modal.Footer>
         </Modal>
-      </div>
-		)
+      </div>;
 	}
 }
 
