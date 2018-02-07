@@ -1,75 +1,69 @@
 // Import required React Bootstrap components within src/App.js file or your  component files:
-import { Navbar, Jumbotron, Button, ButtonGroup, Modal, Popover, OverlayTrigger } from 'react-bootstrap';
-import React, { Component } from "react"
-import "./App.css"
-import CardViewer from "./components/CardViewer"
+import { Navbar, Jumbotron, Button, ButtonGroup, Modal, Popover, OverlayTrigger } from "react-bootstrap";
+import React, { Component } from "react";
+import "./App.css";
+import CardViewer from "./components/CardViewer";
 // import addWordsTable from "./components/addWordsTable";
-var databaseURL = "https://sleepy-sea-27116.herokuapp.com"
+var databaseURL = "https://sleepy-sea-27116.herokuapp.com";
 
 class App extends Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			cards: [],
-			userCards: [],
+  constructor(props) {
+    super(props);
+    this.state = {
+      cards: [],
+      userCards: [],
       scores: [],
-      current: {},
-
-		}
-		this.getFlashcardData = this.getFlashcardData.bind(this);
+      current: {}
+    };
+    this.getFlashcardData = this.getFlashcardData.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.state = {
-          show: false
-        };
-      }
-      handleClose() {
-        this.setState({ show: false });
-      }
-      handleShow() {
-        this.setState({ show: true });
-      }
+      show: false
+    };
+  }
+  handleClose() {
+    this.setState({ show: false });
+  }
+  handleShow() {
+    this.setState({ show: true });
+  }
 
-	getFlashcardData() {
+  getFlashcardData() {
     return fetch(databaseURL)
-			.then(response => response.json())
-			.then(response => {
-				this.setState({
-					cards: response.highschool_flashcards,
-					// userCards: response.teachers_flashcards
-				})
-			})
-			.catch(err => console.error(err))
-	}
+      .then(response => response.json())
+      .then(response => {
+        this.setState({
+          cards: response.highschool_flashcards
+          // userCards: response.teachers_flashcards
+        });
+      })
+      .catch(err => console.error(err));
+  }
 
-	componentDidMount() {
-    this.getFlashcardData()
-    .then (this.randomizer)
-	}
+  componentDidMount() {
+    this.getFlashcardData().then(this.randomizer);
+  }
 
   randomizer = () => {
-    const card = this.state.cards[parseInt(Math.random() * this.state.cards.length)]
-    this.setState({current:card})
-  }
+    const card = this.state.cards[parseInt(Math.random() * this.state.cards.length)];
+    this.setState({ current: card });
+  };
 
   addScore = (word, score) => {
-    this.state.scores[word]=score
-    this.setState({scores:this.state.scores})
-  }
+    this.state.scores[word] = score;
+    this.setState({ scores: this.state.scores });
+  };
 
-	render() {
+  render() {
     console.log(this.state.current);
-    
-    const popover = (      
+    const popover = (
+      <Popover id="modal-popover" title={`The word is ${this.state.current ? this.state.current.word : " "}`}>
+        {this.state.current ? this.state.current.synonyms.split(/\s?,\s?/)[0] : "No synonym"}
+      </Popover>
+    );
 
-      <Popover id="modal-popover" title={`The word is ${this.state.current ? this.state.current.word: " "}`}
-
-      // {this.state.current}
-      // On line above: How to pull in the card name?
-      >{this.state.current ? this.state.current.synonyms.split(/\s?,\s?/)[0] : "No synonym"}</Popover>
-    )
-
-		return <div className="App">
+    return <div className="App">
         <Jumbotron>
           <h1 className="App-title">Brainiac Cards</h1>
         </Jumbotron>
@@ -85,13 +79,16 @@ class App extends Component {
                 <a href="#popover">synonym</a>
               </OverlayTrigger> here
             </h4>
-            <Button bsStyle="primary" onClick={() => addScore(this.state.current.word, 1)}>
+           <Button bsStyle="primary" onClick={this.randomizer}>
+              Next Card
+            </Button>
+            <Button bsStyle="primary" onClick={() => this.addScore(this.state.current.word, 1)}>
               1
             </Button>
-            <Button bsStyle="primary" onClick={() => addScore(this.state.current.word, 2)}>
+            <Button bsStyle="primary" onClick={() => this.addScore(this.state.current.word, 2)}>
               2
             </Button>
-            <Button bsStyle="primary" onClick={() => addScore(this.state.current.word, 3)}>
+            <Button bsStyle="primary" onClick={() => this.addScore(this.state.current.word, 3)}>
               3
             </Button>
           </Modal.Body>
@@ -100,12 +97,7 @@ class App extends Component {
           </Modal.Footer>
         </Modal>
       </div>;
-	}
+  }
 }
 
-
-
-
-
-
-export default App
+export default App;
