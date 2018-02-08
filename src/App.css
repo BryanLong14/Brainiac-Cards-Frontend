@@ -10,7 +10,22 @@
   font-size: 7rem;
 }
 
-.App-header{
+.definition {
+  font-size: 2rem;
+}
+.hidden {
+  display: none;
+}
+
+Div {
+  margin: 1rem;
+}
+
+.btn-primary {
+    margin: .5rem;
+}
+
+/* .App-header{
 
 }
 
@@ -25,4 +40,4 @@
 
 .Next-card{
 
-}
+} */

@@ -1,6 +1,3 @@
 {
-  "extends": "react-app",
-  "rules": {
-    "max-len": 150
-  }
+  "extends": "react-app"
 }
