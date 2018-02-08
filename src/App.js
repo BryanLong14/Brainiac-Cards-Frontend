@@ -1,26 +1,24 @@
 // Import required React Bootstrap components within src/App.js file or your  component files:
-import { Navbar, Jumbotron, Button, ButtonGroup, Modal, Popover, OverlayTrigger } from "react-bootstrap";
+import {  Button, Modal, Tooltip, Popover, OverlayTrigger } from "react-bootstrap";
 import React, { Component } from "react";
+// import { Grid, Input, Select } from "react-spreadsheet-grid";
+// import UserSpreadsheet from "./components/AddWordsTable";
 // import FlipCard from "react-flipcard";
 import "./App.css";
 import CardViewer from "./components/CardViewer";
-// import addWordsTable from "./components/addWordsTable";
 var databaseURL = "https://sleepy-sea-27116.herokuapp.com";
 
+const rows = [
+  { id: "user1", name: "John Doe", positionId: "position1" }
+];
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      cards: [],
-      userCards: [],
-      scores: [],
-      current: {}
-    };
+    this.state = { cards: [], userCards: [], scores: [], current: {}, show: false, isHidden: true, synonyms: {} };
     this.getFlashcardData = this.getFlashcardData.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
-    this.state = { show: false, isHidden: true };
   }
   handleClose() {
     this.setState({ show: false });
@@ -40,14 +38,15 @@ class App extends Component {
       .then(response => {
         this.setState({
           cards: response.highschool_flashcards
-          // userCards: response.teachers_flashcards
+         // userCards: response.teachers_flashcards
         });
       })
       .catch(err => console.error(err));
   }
 
   componentDidMount() {
-    this.getFlashcardData().then(this.randomizer);
+    this.getFlashcardData()
+    .then(this.randomizer);
   }
 
   randomizer = () => {
@@ -58,30 +57,46 @@ class App extends Component {
   addScore = (word, score) => {
     this.state.scores[word] = score;
     this.setState({ scores: this.state.scores });
+    this.submittedWords()
   };
 
+  submittedWords = () => {
+    return Object.keys(this.state.scores)
+    console.log(this.state.scores);
+  }
 
   render() {
-    console.log(this.state.current);
     const popover = (
-      <Popover id="modal-popover">{this.state.current ? `Synonym: ${this.state.current.synonyms.split(/\s?,\s?/)[0]}` : "No synonym"}</Popover>
+      <Popover id="modal-popover">{this.state.current.synonyms ? `Synonym: ${this.state.current.synonyms.split(/\s?,\s?/)[0]}` : "No synonym"}</Popover>
     );
-
+    const tooltip3 = <Tooltip id="tooltip">Rate yourself 3 if you know the definition by heart.</Tooltip>;
+    const tooltip2 = <Tooltip id="tooltip">Rate yourself 2 if you are familiar with the word but don't really know the definition.</Tooltip>;
+    const tooltip1 = <Tooltip id="tooltip">Rate yourself 1 if you do not know the definition.</Tooltip>;
   const Child = () => <div className="definition">
       <div>{`Part of Speech: ${this.state.current.partOfSpeech}`}</div>
       <div>{`Synonyms: ${this.state.current.synonyms}`}</div>
       <div>{`Definition: ${this.state.current.definition}`}</div>
       Rate Yourself:
-      <Button bsStyle="primary" onClick={() => this.addScore(this.state.current.word, 1)}>1</Button>
-      <Button bsStyle="primary" onClick={() => this.addScore(this.state.current.word, 2)}>2</Button>
-      <Button bsStyle="primary" onClick={() => this.addScore(this.state.current.word, 3)}>3</Button>
-           
-    </div>;
+      <OverlayTrigger placement="top" overlay={tooltip1}>
+        <Button bsStyle="primary" onClick={() => this.addScore(this.state.current.word, 1)}>
+          1
+        </Button>
+      </OverlayTrigger>
+      <OverlayTrigger placement="top" overlay={tooltip2}>
+      <Button bsStyle="primary" onClick={() => this.addScore(this.state.current.word, 2)}>
+        2
+      </Button>
+      </OverlayTrigger>
 
+      <OverlayTrigger placement="top" overlay={tooltip3}>
+        <Button bsStyle="primary" onClick={() => this.addScore(this.state.current.word, 3)}>
+          3
+        </Button>
+      </OverlayTrigger>
+    </div>;
     return <div className="App">
-      
-          <h1 className="App-title">Brainiac Cards</h1>
- 
+        <h1 className="App-title">Brainiac Cards</h1>
+        {/* <UserSpreadsheet /> */}
         <Button bsStyle="primary" bsSize="large" onClick={this.handleShow}>
           100 Words Every High School Graduate Should Know
         </Button>
@@ -102,10 +117,8 @@ class App extends Component {
                 Reveal Definition
               </Button> {!this.state.isHidden && <Child />}
             </div>
-            
             <Button onClick={this.handleClose}>Close</Button>
-           
-          </Modal.Body>
+           </Modal.Body>
           <Modal.Footer />
         </Modal>
       </div>;

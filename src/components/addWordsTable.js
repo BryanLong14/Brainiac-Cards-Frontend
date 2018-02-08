@@ -1,31 +1,40 @@
+import { Grid, Input, Select } from "react-spreadsheet-grid";
 import React from "react";
-import ReactDataSheet from 'react-datasheet';
-// Be sure to include styles at some point, probably during your bootstrapping
-import 'react-datasheet/lib/react-datasheet.css';
 
-class addWordsTable extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      grid: [[{ value: 1 }, { value: 3 }], 
-      [{ value: 2 }, { value: 4 }]]
-    };
-  }
+
+class UserSpreadsheet extends React.Component {
   render() {
     return (
-      <ReactDataSheet
-        data={this.state.grid}
-        valueRenderer={cell => cell.value}
-        onCellsChanged={changes => {
-          const grid = this.state.grid.map(row => [...row]);
-          changes.forEach(({ cell, row, col, value }) => {
-            grid[row][col] = { ...grid[row][col], value };
-          });
-          this.setState({ grid });
-        }}
+      <Grid 
+        columns={[
+          {
+            title: () => 'Name', 
+            value: (row, { focus }) => {
+                return (
+                    <Input  
+                      value={row.name}
+                      focus={focus}
+                    />
+                );
+            }
+          }, {
+            title: () => 'Position',
+            value: (row, { focus }) => {
+                return (
+                    <Select  
+                      value={row.positionId}
+                      isOpen={focus}
+                      // items={somePositions}
+                    />
+                );
+            }
+          }
+        ]}
+        
+        getRowKey={row => row.id}
       />
-    );
+    )
   }
 }
 
-export default addWordsTable;
+export default UserSpreadsheet;
