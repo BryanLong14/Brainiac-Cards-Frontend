@@ -1,4 +1,11 @@
-.App {
+HTML {
+    background: url(./assets/background2.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover; 
+}
+  .App {
   text-align: center;
 }
 
@@ -25,19 +32,20 @@ Div {
     margin: .5rem;
 }
 
+.App-title{
+  font-family: 'Passion One', cursive;
+  font-size: 10rem;
+}
 /* .App-header{
 
-}
+} */
 
-.App-title{
 
-}
-
-.singleFlashcard{
+/* .singleFlashcard{
 
 }
 
 
 .Next-card{
 
-} */
+}  */

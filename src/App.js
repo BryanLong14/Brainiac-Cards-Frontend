@@ -79,9 +79,9 @@ class App extends Component {
     </div>;
 
     return <div className="App">
-        <Jumbotron>
+      
           <h1 className="App-title">Brainiac Cards</h1>
-        </Jumbotron>
+ 
         <Button bsStyle="primary" bsSize="large" onClick={this.handleShow}>
           100 Words Every High School Graduate Should Know
         </Button>
@@ -91,9 +91,7 @@ class App extends Component {
             <hr />
             <h4>
               Want to see a hint? There is a <OverlayTrigger overlay={popover}>
-                <a href="#popover" className="">
-                  synonym
-                </a>
+                <a href="#popover" className="">synonym</a>
               </OverlayTrigger> here
             </h4>
             <Button bsStyle="primary" onClick={this.randomizer}>
