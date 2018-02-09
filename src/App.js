@@ -1,4 +1,3 @@
-// Import required React Bootstrap components within src/App.js file or your  component files:
 import {  Button, Modal, Tooltip, Popover, OverlayTrigger } from "react-bootstrap";
 import React, { Component } from "react";
 // import { Grid, Input, Select } from "react-spreadsheet-grid";
@@ -8,9 +7,6 @@ import "./App.css";
 import CardViewer from "./components/CardViewer";
 var databaseURL = "https://sleepy-sea-27116.herokuapp.com";
 
-const rows = [
-  { id: "user1", name: "John Doe", positionId: "position1" }
-];
 
 class App extends Component {
   constructor(props) {
