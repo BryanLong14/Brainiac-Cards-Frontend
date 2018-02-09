@@ -54,11 +54,11 @@ class App extends Component {
     this.state.scores[word] = score;
     this.setState({ scores: this.state.scores });
     this.submittedWords()
+    console.log(this.state);
   };
 
   submittedWords = () => {
     return Object.keys(this.state.scores)
-    console.log(this.state.scores);
   }
 
   render() {
@@ -68,24 +68,35 @@ class App extends Component {
     const tooltip3 = <Tooltip id="tooltip">Rate yourself 3 if you know the definition by heart.</Tooltip>;
     const tooltip2 = <Tooltip id="tooltip">Rate yourself 2 if you are familiar with the word but don't really know the definition.</Tooltip>;
     const tooltip1 = <Tooltip id="tooltip">Rate yourself 1 if you do not know the definition.</Tooltip>;
-  const Child = () => <div className="definition">
-      <div>{`Part of Speech: ${this.state.current.partOfSpeech}`}</div>
+    const Child = () => <div className="definition">
+      {this.state.current.definition ? <div>{`Definition: ${this.state.current.definition}`}</div> : "No Word"}
       <div>{`Synonyms: ${this.state.current.synonyms}`}</div>
-      <div>{`Definition: ${this.state.current.definition}`}</div>
+      <div>{`Part of Speech: ${this.state.current.partOfSpeech}`}</div>
       Rate Yourself:
       <OverlayTrigger placement="top" overlay={tooltip1}>
-        <Button bsStyle="primary" onClick={() => this.addScore(this.state.current.word, 1)}>
+        <Button id="button1" bsStyle="primary" onClick={() => {
+            this.addScore(this.state.current.word, -1);
+            this.randomizer();
+          }}>
+          {" "}
           1
         </Button>
       </OverlayTrigger>
       <OverlayTrigger placement="top" overlay={tooltip2}>
-      <Button bsStyle="primary" onClick={() => this.addScore(this.state.current.word, 2)}>
-        2
-      </Button>
+        <Button id="button2" bsStyle="primary" onClick={() => {
+            this.addScore(this.state.current.word, 2);
+            this.randomizer();
+          }}>
+          {" "}
+          2
+        </Button>
       </OverlayTrigger>
-
       <OverlayTrigger placement="top" overlay={tooltip3}>
-        <Button bsStyle="primary" onClick={() => this.addScore(this.state.current.word, 3)}>
+        <Button id="button3" bsStyle="primary" onClick={() => {
+            this.addScore(this.state.current.word, 3);
+            this.randomizer();
+          }}>
+          {" "}
           3
         </Button>
       </OverlayTrigger>
