@@ -101,7 +101,8 @@ class App extends Component {
         </Button>
       </OverlayTrigger>
     </div>;
-    return <div className="App">
+    return (
+    <div className="App">
         <h1 className="App-title">Brainiac Cards</h1>
         {/* <UserSpreadsheet /> */}
         <Button bsStyle="primary" bsSize="large" onClick={this.handleShow}>
@@ -128,7 +129,8 @@ class App extends Component {
            </Modal.Body>
           <Modal.Footer />
         </Modal>
-      </div>;
+      </div>
+    )
   }
 }
 
