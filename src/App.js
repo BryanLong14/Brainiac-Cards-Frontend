@@ -33,7 +33,6 @@ class App extends Component {
       .then(response => {
         this.setState({
           cards: response.highschool_flashcards
-          // userCards: response.teachers_flashcards
         });
       })
       .catch(err => console.error(err));
@@ -69,14 +68,16 @@ class App extends Component {
         partOfSpeech: this.state.current.partOfSpeech,
         synonyms: this.state.current.synonyms,
         word: this.state.current.word,
-        level: Number(event.target.value)
+        level: event.target.value
       }),
       headers: new Headers({
         "Content-Type": "application/json"
       })
     })
-      .then(response => response.json())
-      .catch(error => console.error);
+    .then(response => response.json())
+    .then(this.setState({
+      isHidden: !this.state.isHidden})) 
+    .catch(error => console.error);
   }
 
 
