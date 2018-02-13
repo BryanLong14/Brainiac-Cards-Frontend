@@ -17,6 +17,13 @@ HTML {
   font-size: 7rem;
 }
 
+.carousel-caption {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  color: black !important;
+}
 .definition {
   font-size: 2rem;
 }
