@@ -23,6 +23,7 @@ HTML {
   justify-content: center;
   align-content: center;
   color: black !important;
+  padding-bottom: 3rem;
 }
 .definition {
   font-size: 2rem;

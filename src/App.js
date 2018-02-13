@@ -66,16 +66,18 @@ class App extends Component {
       .catch(err => console.error(err));
   };
 
-  deteleCard = (item) => {
-    console.log(this.state);
-    return fetch(databaseURL + "teachers_flashcards/" + item, {
-      method: "delete"
-    }).then(response => response.json())
+  deteleCard = (id) => {
+    console.log(this.state)
+    return fetch(databaseURL + "teachers_flashcards/" + id, { method: "DELETE" })
+      .then(response => response.json())
       .then(response => {
-        this.setState({ myFlashCards: response.teachers_flashcards })
-        .catch(err => console.log(err))
+        this.setState({
+          cards: response.highschool_flashcards
+        })
+        console.log(this.state)
       })
-  }
+        .catch(error => console.error);
+}
 
   componentDidMount = () => {
     this.getFlashcardData()
@@ -187,8 +189,7 @@ class App extends Component {
         </OverlayTrigger>
       </div>
     );
-    return (
-      <div className="App">
+    return <div className="App">
         <h1 className="App-title">Brainiac Cards</h1>
 
         <Button bsStyle="primary" bsSize="large" onClick={this.show100Flashcards}>
@@ -203,25 +204,28 @@ class App extends Component {
         <Modal bsSize="large" show={this.state.showMyFlashcards} onHide={this.closeMyFlashcards}>
           <Modal.Body>
             <h1 className="Vocab-Word">My Flashcards</h1>
-            <Carousel>
-              {/* Map through results to create carousel */}
+            <Carousel interval={2500}>
               {this.state.myFlashCards.map((item, i) => {
-                return (
-                  <Carousel.Item key={this.state.myFlashCards[i].id}>
+                return <Carousel.Item key={this.state.myFlashCards[i].id}>
                     <img alt="900x500" src={blankCard} />
                     <Carousel.Caption>
                       <h1>Word: {this.state.myFlashCards[i].word}</h1>
                       <h3>Definition: {this.state.myFlashCards[i].definition}</h3>
-                      <h3>{this.state.myFlashCards[i].synonyms ? `Synonym: ${this.state.myFlashCards[i].synonyms}` : "No synonym"}</h3>
-                      <h3>{this.state.myFlashCards[i].partOfSpeech ? `Part of Speeck: ${this.state.myFlashCards[i].partOfSpeech}` : "Not Listed"}</h3>
+                      <h3>
+                        {this.state.myFlashCards[i].synonyms ? `Synonym: ${this.state.myFlashCards[i].synonyms}` : "No synonym"}
+                      </h3>
+                      <h3>
+                        {this.state.myFlashCards[i].partOfSpeech
+                          ? `Part of Speeck: ${this.state.myFlashCards[i].partOfSpeech}`
+                          : "Not Listed"}
+                      </h3>
+                    <Button bsStyle="primary" onClick={this.deteleCard.bind(this, this.state.myFlashCards[i].id)}>
+                      Delete Card
+                    </Button>
                     </Carousel.Caption>
-                  </Carousel.Item>
-                );
+                  </Carousel.Item>;
               })}
             </Carousel>
-            <Button bsStyle="primary" onClick={this.deteleCard}>
-              Delete Card
-            </Button>
             <Button onClick={this.closeMyFlashcards}>Close My Flashcards</Button>
           </Modal.Body>
         </Modal>
@@ -232,25 +236,21 @@ class App extends Component {
             <CardViewer card={this.state.current} />
             <hr />
             <h4>
-              Want to see a hint? There is a{" "}
-              <OverlayTrigger overlay={popover}>
+              Want to see a hint? There is a <OverlayTrigger overlay={popover}>
                 <a href="#popover" className="">
                   synonym
                 </a>
-              </OverlayTrigger>{" "}
-              here
+              </OverlayTrigger> here
             </h4>
             <div>
               <Button bsStyle="primary" onClick={this.toggleDefinition.bind(this)}>
                 Reveal Definition
-              </Button>{" "}
-              {!this.state.definitionIsHidden && <Definition />}
+              </Button> {!this.state.definitionIsHidden && <Definition />}
             </div>
             <Button onClick={this.close100Flashcards}>Close</Button>
           </Modal.Body>
         </Modal>
-      </div>
-    );
+      </div>;
   }
 }
 
