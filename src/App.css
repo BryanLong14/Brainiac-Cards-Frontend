@@ -40,9 +40,23 @@ Div {
     margin: .5rem;
 }
 
+.btn-card {
+    background-color: "transparent" !important;
+}
+/* 
+.btn-default {
+     background-color: "transparent" !important; 
+} */
+
+.btn-card:hover {
+ cursor:pointer;
+ 
+}
 .App-title{
-  font-family: 'Passion One', cursive;
+  /* font-family: 'Passion One', cursive; */
+  font-family: 'Lakki Reddy', cursive;
   font-size: 10rem;
+  padding-top: 33rem;
 }
 /* .App-header{
 
