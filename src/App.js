@@ -136,7 +136,7 @@ class App extends Component {
   postToUserCards = event => {
     event.preventDefault();
     console.log(this.state);
-    fetch(databaseURL + "teachers_flashcards/" + this.state.current.id, {
+    fetch(databaseURL + "teachers_flashcards/", {
       method: "POST",
       body: JSON.stringify({
         id: this.state.current.id,
@@ -151,8 +151,8 @@ class App extends Component {
       })
     })
       .then(response => response.json())
+      .catch(error => console.error)
       .then(this.setState({ definitionIsHidden: !this.state.definitionIsHidden }))
-      .catch(error => console.error);
   };
 
   createSelectItems() {
@@ -224,7 +224,7 @@ class App extends Component {
             value="3"
             bsStyle="primary"
             onClick={event => {
-              // console.log(event.target.value);
+              console.log(event.target.value);
               // this.addScore(this.state.current.word, 3);
               this.randomizer();
               this.postToUserCards(event);
@@ -236,18 +236,17 @@ class App extends Component {
         </OverlayTrigger>
       </div>
     );
-    return (
-      <div className="App">
+    return <div className="App">
         <h1 className="App-title">Brainiac Cards</h1>
 
         <Modal show={this.state.showUserEnterName} onHide={this.closeUserEnterName}>
           <Modal.Body>
-          <p>Testing ShowUserEnterName</p>
-            <FormGroup>
-              <InputGroup>
-                <FormControl type="text" />
-                <DropdownButton componentClass={InputGroup.Button} id="input-dropdown-addon" title="Add Name">
-                  <MenuItem type="select" onChange={this.onDropdownSelected} label="Multiple Select" multiple>
+            <p>Testing ShowUserEnterName</p>
+              <FormGroup show={this.state.showUserEnterName} onHide={this.closeUserEnterName}>
+                <InputGroup>
+                 <FormControl type="text" />
+                   <DropdownButton componentClass={InputGroup.Button} id="input-dropdown-addon" title="Add Name">
+                   <MenuItem type="select" onChange={this.onDropdownSelected} label="Multiple Select" multiple>
                     {this.user ? <MenuItem eventKey="x">{this.user.username}</MenuItem> : <MenuItem eventKey="y">Some text</MenuItem>}{" "}
                   </MenuItem>{" "}
                 </DropdownButton>
@@ -274,26 +273,25 @@ class App extends Component {
             <h1 className="Vocab-Word">My Flashcards</h1>
             <Carousel interval={2500}>
               {this.state.myFlashCards.map((item, i) => {
-                return (
-                  <Carousel.Item key={this.state.myFlashCards[i].id}>
+                return <Carousel.Item key={this.state.myFlashCards[i].id}>
                     <img alt="900x500" src={blankCard} />
                     <Carousel.Caption>
                       <h1>Word: {this.state.myFlashCards[i].word}</h1>
                       <h3>Definition: {this.state.myFlashCards[i].definition}</h3>
                       <h3>{this.state.myFlashCards[i].synonyms ? `Synonym: ${this.state.myFlashCards[i].synonyms}` : "No synonym"}</h3>
-                      <h3>{this.state.myFlashCards[i].partOfSpeech ? `Part of Speeck: ${this.state.myFlashCards[i].partOfSpeech}` : "Not Listed"}</h3>
-                      <Button
-                        bsStyle="primary"
-                        onClick={
-                          this.deteleCard.bind(this, this.state.myFlashCards[i].id)
-                          // ; getFlashcardData();
-                        }
-                      >
+                      <h3>
+                        {this.state.myFlashCards[i].partOfSpeech ? `Part of Speeck: ${this.state.myFlashCards[i].partOfSpeech}` : "Not Listed"}
+                      </h3>
+                      <Button bsStyle="primary" onClick={
+                        // event => {
+                        //  this.getMyFlashcardData(); 
+                         this.deteleCard.bind(this, this.state.myFlashCards[i].id)}
+                        //  }
+                         >
                         Delete Card
                       </Button>
                     </Carousel.Caption>
-                  </Carousel.Item>
-                );
+                  </Carousel.Item>;
               })}
             </Carousel>
             <Button onClick={this.closeMyFlashcards}>Close My Flashcards</Button>
@@ -306,25 +304,21 @@ class App extends Component {
             <CardViewer card={this.state.current} />
             <hr />
             <h4>
-              Want to see a hint? There is a{" "}
-              <OverlayTrigger overlay={popover}>
+              Want to see a hint? There is a <OverlayTrigger overlay={popover}>
                 <a href="#popover" className="">
                   synonym
                 </a>
-              </OverlayTrigger>{" "}
-              here
+              </OverlayTrigger> here
             </h4>
             <div>
               <Button bsStyle="primary" onClick={this.toggleDefinition.bind(this)}>
                 Reveal Definition
-              </Button>{" "}
-              {!this.state.definitionIsHidden && <Definition />}
+              </Button> {!this.state.definitionIsHidden && <Definition />}
             </div>
             <Button onClick={this.close100Flashcards}>Close</Button>
           </Modal.Body>
         </Modal>
-      </div>
-    );
+      </div>;
   }
 }
 
