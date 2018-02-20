@@ -9,6 +9,11 @@ HTML {
   text-align: center;
 }
 
+h2, h3 {
+  margin-bottom:10px;
+  margin-top:10px;
+}
+
 .modal-content {
   text-align: center;
 }
@@ -17,17 +22,10 @@ HTML {
   font-size: 7rem;
 }
 
-.carousel-caption {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  color: black !important;
-  padding-bottom: 3rem;
-}
 .definition {
   font-size: 2rem;
 }
+
 .hidden {
   display: none;
 }
@@ -36,17 +34,74 @@ Div {
   margin: 1rem;
 }
 
-.btn-primary {
-    margin: .5rem;
+.btn-primary, .btn-danger {
+    margin: 1rem;
 }
+
+.carousel-caption{
+  color: black;
+  padding-bottom: 50px;
+}
+
+.carousel-indicators li {
+  border-radius: 12px;
+  width: 12px;
+  height: 12px;
+  background-color: #404040;
+}
+.carousel-indicators:active {
+  border-radius: 12px;
+  width: 12px;
+  height: 12px;
+  background-color: red !important;
+  border-color: green !important;
+ }
 
 .btn-card {
     background-color: "transparent" !important;
 }
-/* 
-.btn-default {
-     background-color: "transparent" !important; 
-} */
+
+.UploadForm{
+  width:80%;
+  margin: 3rem;
+  margin-bottom: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  margin-left:5rem;
+}
+
+.list-group-item {
+  display: flex;
+  flex-direction: column;
+  padding:1px;
+  justify-content: space-between;
+  align-content: stretch;
+  align-items: center;
+  border: 2px solid #ddd
+}
+
+.radioButtons {
+  display: flex;
+  justify-content: space-between;
+  align-content: stretch;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  line-height: 1.42857143;
+  font-size: 14px;
+  height: 34px;
+  padding: 6px 12px;
+  color: #555;
+}
+
+.radioA {
+  margin-right: -23px;
+}
+.radioB {
+  margin-right: -23px;
+  padding-top: 15px;
+}
 
 .btn-card:hover {
  cursor:pointer;
@@ -58,16 +113,3 @@ Div {
   font-size: 10rem;
   padding-top: 33rem;
 }
-/* .App-header{
-
-} */
-
-
-/* .singleFlashcard{
-
-}
-
-
-.Next-card{
-
-}  */
