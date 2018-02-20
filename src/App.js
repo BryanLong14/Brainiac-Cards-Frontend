@@ -207,19 +207,6 @@ class App extends Component {
       .then(this.getMyFlashcardData);
   };
 
-  createSelectItems() {
-    let items = [];
-    for (let i = 0; i <= this.props.maxValue; i++) {
-      items.push(
-        <option key={i} value={i}>
-          {i}
-        </option>
-      );
-      //here I will be creating my options dynamically based on
-      //what props are currently passed to the parent component
-    }
-    return items;
-  }
 
   onDropdownSelected(e) {
     console.log("THE VAL", e.target.value);
@@ -264,7 +251,7 @@ class App extends Component {
               this.postToUserCards(event);
             }}
           >
-            {"2"}{" "}
+            {"2"}
           </Button>
         </OverlayTrigger>
         <OverlayTrigger placement="top" overlay={tooltip3}>
@@ -285,6 +272,7 @@ class App extends Component {
     );
     return <div className="App">
         <h1 className="App-title">Brainiac Cards</h1>
+
         {/* Attempting to work with user names and custon saved card sets */}
         <Modal show={this.state.showUserEnterName} onHide={this.closeUserEnterName}>
           <Modal.Body>
@@ -301,6 +289,7 @@ class App extends Component {
             </FormGroup>
           </Modal.Body>
         </Modal>
+
         {/* Eventually turn buttons into clicakable images like the one below
         <div>
           {" "}
@@ -349,7 +338,6 @@ class App extends Component {
                 })}
             </ListGroup>
             <Button onClick={
-              // this.initData
               this.closeMyFlashcards
               }>Close My Flashcards</Button>
           </Modal.Body>
@@ -378,7 +366,7 @@ class App extends Component {
           </Modal.Body>
         </Modal>
 
-        {/* Modal for Form Popup */}
+        {/* Modal for Form Popup to Add Individual Words*/}
         <Modal show={this.state.addWordsToFlashCardsForm} onHide={this.HideFlashCardsForm}>
           <NameForm />
         </Modal>
