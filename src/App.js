@@ -16,8 +16,8 @@ import {
 import React, { Component } from "react";
 import { createStore, combineReducers } from "redux";
 import "./App.css";
-import ReactDOM from "react-dom";
 import blankCard from "./assets/blankCard.jpg";
+// import ReactDOM from "react-dom";
 // import blankFlashCard from "./assets/blankFlashcard.png";
 import CardViewer from "./components/CardViewer";
 import NameForm from "./components/EnterWordsForm";
@@ -349,8 +349,8 @@ class App extends Component {
                 })}
             </ListGroup>
             <Button onClick={
-              this.postToUserCards
-              // this.closeMyFlashcards
+              // this.initData
+              this.closeMyFlashcards
               }>Close My Flashcards</Button>
           </Modal.Body>
         </Modal>
