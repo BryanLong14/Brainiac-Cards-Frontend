@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "cypress": "^2.0.2",
     "husky": "^0.14.3",
     "lint-staged": "^6.1.0",
     "prettier": "^1.10.2",

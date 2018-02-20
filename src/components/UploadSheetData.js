@@ -3,6 +3,9 @@ import { createStore, combineReducers } from "redux";
 import ReactDOM from "react-dom";
 import HotTable from "react-handsontable";
 
+// const { createStore } = Redux;
+// const { combineReducers } = Redux;
+
 const changes = (state = [], action) => {
   switch (action.type) {
     case "change":
@@ -29,20 +32,52 @@ class ActionList extends React.Component {
     super(props);
   }
 
-//   {
-//     for (let index = 0; index < newArray.length; index++) {
-//     const element = newArray[index];
-//     newArray.map(thing => {newArray[index].column})
+  //   {
+  //     for (let index = 0; index < newArray.length; index++) {
+  //     const element = newArray[index];
+  //     newArray.map(thing => {newArray[index].column})
 
-//   }
-// }
+  //   }
+  // }
+
+  postToMyCards = event => {
+    event.preventDefault();
+    console.log(this);
+    fetch("https://sleepy-sea-27116.herokuapp.com/teachers_flashcards/", {
+      method: "POST",
+      body: JSON.stringify({
+       
+        definition: this.state.definitionValue,
+        synonyms: this.state.synonymsValue,
+        word: this.state.wordValue,
+        level: this.state.value
+      }),
+      headers: new Headers({
+        "Content-Type": "application/json"
+      })
+    })
+      .then(response => response.json())
+      .then(this.resetForm)
+      .then()
+      .catch(error => console.error);
+  };
+
+
+
+
   render() {
     let result = null;
-    
-    console.log(this.props.actionList.map(function(action) {
-      return <li key={action.id} className={action.type}></li>;
-    }
-  ));
+    console.log("this props actions list", this.props.actionList);
+    console.log("this state", this.state);
+    console.log(
+      this.props.actionList.map(function(action) {
+        return (
+        <li>word={action.word}</li>,
+        <li>definition={action.definition}</li>,
+        <li>synonym={action.synonym}</li> 
+     )
+    })
+  )
 
     // result = this.props.actionList.map(function(action) {
     //   return <li key={action.id} className={action.type}>

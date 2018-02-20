@@ -227,7 +227,6 @@ class App extends Component {
   }
 
   render() {
-    
     const popover = (
       <Popover id="modal-popover">
         {this.state.current.synonyms ? `Synonym: ${this.state.current.synonyms.split(/\s?,\s?/)[0]}` : "No synonym"}
@@ -330,6 +329,7 @@ class App extends Component {
             <Button onClick={this.MyPracticeFlashcards} bsSize="large" bsStyle="primary">
               Practice My Flashcards
             </Button>
+
             <ListGroup>
               {this.state.myFlashCards
                 .sort(function(a, b) {
@@ -348,7 +348,10 @@ class App extends Component {
                     </ListGroupItem>;
                 })}
             </ListGroup>
-            <Button onClick={this.closeMyFlashcards}>Close My Flashcards</Button>
+            <Button onClick={
+              this.postToUserCards
+              // this.closeMyFlashcards
+              }>Close My Flashcards</Button>
           </Modal.Body>
         </Modal>
 
@@ -406,7 +409,7 @@ class App extends Component {
           <div className="ReactHandsoneTable">
             <h2>Add Flashcards</h2>
             <TableUploadComponent />
-            <Button onClick={this.hideMegaUpload}>Close</Button>
+            <Button onClick={this.hideMegaUpload}>Close And Save Your Flashcards</Button>
           </div>
         </Modal>
       </div>;
