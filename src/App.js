@@ -14,12 +14,36 @@ import {
   MenuItem
 } from "react-bootstrap";
 import React, { Component } from "react";
+import { createStore, combineReducers } from "redux";
 import "./App.css";
+import ReactDOM from "react-dom";
 import blankCard from "./assets/blankCard.jpg";
 // import blankFlashCard from "./assets/blankFlashcard.png";
 import CardViewer from "./components/CardViewer";
 import NameForm from "./components/EnterWordsForm";
+import TableUploadComponent from "./components/UploadSheetData";
 var databaseURL = "https://sleepy-sea-27116.herokuapp.com/";
+const actionReducers = combineReducers({ changes });
+const reduxStore = createStore(actionReducers);
+
+const changes = (state = [], action) => {
+  switch (action.type) {
+    case "change":
+      return [
+        ...state,
+        {
+          id: action.id,
+          row: action.row,
+          column: action.column,
+          oldValue: action.oldValue,
+          newValue: action.newValue,
+          type: action.type
+        }
+      ];
+    default:
+      return state;
+  }
+};
 
 class App extends Component {
   constructor(props) {
@@ -28,12 +52,13 @@ class App extends Component {
       cards: [],
       userCards: [],
       current: {},
-      myFlashCards: [], 
+      myFlashCards: [],
       showMyFlashcards: false,
       showMyPracticeFlashcards: false,
       show100cards: false,
       definitionIsHidden: true,
       addWordsToFlashCardsForm: false,
+      megaUpload: false,
       synonyms: {},
       user: [],
       showUserNames: true
@@ -89,12 +114,27 @@ class App extends Component {
   };
 
   addWordsToFlashCards = () => {
-    this.setState({ addWordsToFlashCardsForm: true });
+    this.initData()
+    .then(() => {
+      this.setState({ addWordsToFlashCardsForm: true })
+    })
   };
 
   HideFlashCardsForm = () => {
-    this.setState({ addWordsToFlashCardsForm: false });
+    this.initData()
+    .then(() => {
+      this.setState({ addWordsToFlashCardsForm: false })
+    })
   };
+
+  showMegaUpload = () => {
+    this.setState({ megaUpload: true });
+
+  };
+
+  hideMegaUpload = () => {
+    this.setState({ megaUpload: false });
+  }
 
   getMyFlashcardData = () => {
     return fetch(databaseURL + "teachers_flashcards")
@@ -116,23 +156,28 @@ class App extends Component {
   };
 
   deleteCard = id => {
-    console.log(this.state);
+    console.log("delete card", id, this.state);
     return (
       fetch(databaseURL + "teachers_flashcards/" + id, { method: "DELETE" })
-        .then(response => response.json())
-        // .then(response => {
-        //   this.setState({ myFlashCards: response.teachers_flashcards });
-        // })
-        .then(this.getMyFlashcardData())
+        .then(response => response.text())
+        .then(response => {
+          console.log(response)
+          // this.setState({ myFlashCards: response.teachers_flashcards });
+        })
+        .then(this.initData)
         .catch(error => console.error)
     );
   };
 
   componentDidMount = () => {
-    this.getFlashcardData()
-      .then(this.randomizer)
-      .then(this.getMyFlashcardData());
+    this.initData()
   };
+
+  initData = () => {
+    return this.getFlashcardData()
+      .then(this.randomizer)
+      .then(this.getMyFlashcardData);
+}
 
   randomizer = () => {
     const card = this.state.cards[parseInt(Math.random() * this.state.cards.length)];
@@ -158,8 +203,8 @@ class App extends Component {
     })
       .then(response => response.json())
       .catch(error => console.error)
-      .then(this.setState({ definitionIsHidden: !this.state.definitionIsHidden }))
-      .then(this.getMyFlashcardData());
+      .then(() => this.setState({ definitionIsHidden: !this.state.definitionIsHidden }))
+      .then(this.getMyFlashcardData);
   };
 
   createSelectItems() {
@@ -182,6 +227,7 @@ class App extends Component {
   }
 
   render() {
+    
     const popover = (
       <Popover id="modal-popover">
         {this.state.current.synonyms ? `Synonym: ${this.state.current.synonyms.split(/\s?,\s?/)[0]}` : "No synonym"}
@@ -272,9 +318,15 @@ class App extends Component {
         <Modal bsSize="large" show={this.state.showMyFlashcards} onHide={this.closeMyFlashcards}>
           <Modal.Body>
             <h1 className="Vocab-Word">Ranked Flashcards</h1>
+
             <Button onClick={this.addWordsToFlashCards} bsSize="large" bsStyle="primary">
               Add Flashcards
             </Button>
+
+            <Button onClick={this.showMegaUpload} bsStyle="primary" bsSize="large">
+              Mega Upload
+            </Button>
+
             <Button onClick={this.MyPracticeFlashcards} bsSize="large" bsStyle="primary">
               Practice My Flashcards
             </Button>
@@ -348,8 +400,18 @@ class App extends Component {
             <Button onClick={this.close100Flashcards}>Close</Button>
           </Modal.Body>
         </Modal>
+
+        {/* Modal showing large form upload */}
+        <Modal bsSize="large" show={this.state.megaUpload}>
+          <div className="ReactHandsoneTable">
+            <h2>Add Flashcards</h2>
+            <TableUploadComponent />
+            <Button onClick={this.hideMegaUpload}>Close</Button>
+          </div>
+        </Modal>
       </div>;
   }
 }
+
 
 export default App;

@@ -30,8 +30,15 @@ h2, h3 {
   display: none;
 }
 
-Div {
-  margin: 1rem;
+.htCore{
+  padding-left: 8rem;
+  padding-top: 3rem;
+  width: 400px;
+}
+
+.ReactHandsoneTable{
+  text-align: center;
+  height: 700px;
 }
 
 .btn-primary, .btn-danger {
