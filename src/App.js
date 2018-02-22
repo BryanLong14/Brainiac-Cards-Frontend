@@ -274,7 +274,7 @@ class App extends Component {
         <h1 className="App-title">Brainiac Cards</h1>
 
         {/* Attempting to work with user names and custon saved card sets */}
-        <Modal show={this.state.showUserEnterName} onHide={this.closeUserEnterName}>
+        {/* <Modal show={this.state.showUserEnterName} onHide={this.closeUserEnterName}>
           <Modal.Body>
             <p>Testing ShowUserEnterName</p>
             <FormGroup show={this.state.showUserEnterName} onHide={this.closeUserEnterName}>
@@ -288,7 +288,7 @@ class App extends Component {
               </InputGroup>
             </FormGroup>
           </Modal.Body>
-        </Modal>
+        </Modal> */}
 
         {/* Eventually turn buttons into clicakable images like the one below
         <div>

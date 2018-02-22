@@ -43,7 +43,7 @@ describe('Kitchen Sink', function () {
       // https://on.cypress.io/get
 
       // Get DOM elements by id
-      cy.get('#query-btn').should('contain', 'Button')
+      cy.get("#query-btn").should("contain", "100 Words Every High School Graduate Should Know");
 
       // Get DOM elements by class
       cy.get('.query-btn').should('contain', 'Button')
