@@ -67,8 +67,8 @@ class ActionList extends React.Component {
 
   render() {
     let result = null;
-    console.log("this props actions list", this.props.actionList);
-    console.log("this state", this.state);
+    console.log("this props actions list :", this.props.actionList);
+    // console.log("this state :", this.state);
     console.log(
       this.props.actionList.map(function(action) {
         return (
@@ -77,6 +77,9 @@ class ActionList extends React.Component {
         <li>synonym={action.synonym}</li> 
      )
     })
+    // Loop through returned map results, 
+    // create fetch request CREATE in json as one array of objects. 
+    // Make a new route groupCreate that maps through request. 
   )
 
     // result = this.props.actionList.map(function(action) {
