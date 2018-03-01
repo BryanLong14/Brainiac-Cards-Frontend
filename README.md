@@ -1,6 +1,8 @@
 # Brainiac Cards
 ## Learn vocabulary through active recall and repetition
-[Brainiac Cards Deployed App](https://braniac-cards.herokuapp.com/) ---
+[Brainiac Cards Deployed App](https://braniac-cards.herokuapp.com/) 
+
+
 This web application allows users to study vocabulary in an interactive way. The database is populated with the famous 100 Words Every High School Graduate Should Know. Additionally, users:
 See a word and think of the definition
 Have the ability to see synonyms
