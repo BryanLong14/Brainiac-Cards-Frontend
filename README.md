@@ -21,4 +21,4 @@ Once words are rated they are saved to a database, which sorts words based on us
 
 
 ## Technologies Used 
-React / JavaScript / Express / Node.js / Knex & PostgreSQL (Developer Created API)
+React / JavaScript / HTML / CSS / Express / Node.js / Knex & PostgreSQL (Developer Created API)
