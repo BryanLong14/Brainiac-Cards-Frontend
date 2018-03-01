@@ -2,7 +2,7 @@
 ## Learn vocabulary interactively through active recall and repetition
 [Brainiac Cards Deployed App](https://braniac-cards.herokuapp.com/) 
 
-
+## User Experience
 This web application allows users to study vocabulary in an interactive way. The database is populated with the famous _100 Words Every High School Graduate Should Know_. To practice vocabulary, users:
  1. See a word and think of the definition
  2. Have the ability to see synonyms
