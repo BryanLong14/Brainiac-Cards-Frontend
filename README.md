@@ -14,7 +14,7 @@ View saved cards in a carousel-style card viewer
 Delete user-uploaded flashcards
 
 
-
+[Brainiac Demo](BraniacMovie.gif)
 
 
 ## Playing Modes:
