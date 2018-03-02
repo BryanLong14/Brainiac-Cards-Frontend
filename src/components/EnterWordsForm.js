@@ -5,7 +5,7 @@ class NameForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = { value: "", wordValue: "", definitionValue: "", synonymsValue: "", showMyPracticeFlashcards: false };
-    this.baseState = this.state; 
+    this.baseState = this.state;
 
     this.handlewordValueChange = this.handlewordValueChange.bind(this);
     this.handledefinitionValueChange = this.handledefinitionValueChange.bind(this);
@@ -36,7 +36,7 @@ class NameForm extends React.Component {
 
   resetForm = () => {
     this.setState(this.baseState);
-  }
+  };
 
   postToMyCards = event => {
     event.preventDefault();
@@ -53,10 +53,10 @@ class NameForm extends React.Component {
         "Content-Type": "application/json"
       })
     })
-    .then(response => response.json())
-    .then(this.resetForm)
-    .then()
-    .catch(error => console.error);
+      .then(response => response.json())
+      .then(this.resetForm)
+      .then()
+      .catch(error => console.error);
   };
 
   render() {
@@ -89,14 +89,11 @@ class NameForm extends React.Component {
         <FormGroup className="radioButtons" onChange={this.handleValueChange}>
           Select Difficulty Level
           <Radio className="radioA" name="radioGroup" value="1" />Easy
-          {""}
           <Radio className="radioB" name="radioGroup" value={"2"} />Medium
-          {""}
           <Radio className="radioB" name="radioGroup" value={"3"} />Hard
-          {""}
         </FormGroup>
-        <p id="message"></p>
-        <Button bsStyle="primary" type="submit" >
+        <p id="message" />
+        <Button bsStyle="primary" type="submit">
           Add Flashcard
         </Button>
       </Form>

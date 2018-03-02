@@ -1,49 +1,33 @@
-import {
-  Button,
-  Modal,
-  Tooltip,
-  Popover,
-  FormControl,
-  FormGroup,
-  Carousel,
-  OverlayTrigger,
-  InputGroup,
-  ListGroup,
-  ListGroupItem,
-  DropdownButton,
-  MenuItem
-} from "react-bootstrap";
+import { Button, Modal, Tooltip, Popover, Carousel, OverlayTrigger, ListGroup, ListGroupItem } from "react-bootstrap";
 import React, { Component } from "react";
 import { createStore, combineReducers } from "redux";
 import "./App.css";
 import blankCard from "./assets/blankCard.jpg";
-// import ReactDOM from "react-dom";
-// import blankFlashCard from "./assets/blankFlashcard.png";
 import CardViewer from "./components/CardViewer";
 import NameForm from "./components/EnterWordsForm";
 import TableUploadComponent from "./components/UploadSheetData";
 var databaseURL = "https://sleepy-sea-27116.herokuapp.com/";
-const actionReducers = combineReducers({ changes });
-const reduxStore = createStore(actionReducers);
+// const actionReducers = combineReducers({ changes });
+// const reduxStore = createStore(actionReducers);
 
-const changes = (state = [], action) => {
-  switch (action.type) {
-    case "change":
-      return [
-        ...state,
-        {
-          id: action.id,
-          row: action.row,
-          column: action.column,
-          oldValue: action.oldValue,
-          newValue: action.newValue,
-          type: action.type
-        }
-      ];
-    default:
-      return state;
-  }
-};
+// const changes = (state = [], action) => {
+//   switch (action.type) {
+//     case "change":
+//       return [
+//         ...state,
+//         {
+//           id: action.id,
+//           row: action.row,
+//           column: action.column,
+//           oldValue: action.oldValue,
+//           newValue: action.newValue,
+//           type: action.type
+//         }
+//       ];
+//     default:
+//       return state;
+//   }
+// };
 
 class App extends Component {
   constructor(props) {
@@ -114,27 +98,24 @@ class App extends Component {
   };
 
   addWordsToFlashCards = () => {
-    this.initData()
-    .then(() => {
-      this.setState({ addWordsToFlashCardsForm: true })
-    })
+    this.initData().then(() => {
+      this.setState({ addWordsToFlashCardsForm: true });
+    });
   };
 
   HideFlashCardsForm = () => {
-    this.initData()
-    .then(() => {
-      this.setState({ addWordsToFlashCardsForm: false })
-    })
+    this.initData().then(() => {
+      this.setState({ addWordsToFlashCardsForm: false });
+    });
   };
 
   showMegaUpload = () => {
     this.setState({ megaUpload: true });
-
   };
 
   hideMegaUpload = () => {
     this.setState({ megaUpload: false });
-  }
+  };
 
   getMyFlashcardData = () => {
     return fetch(databaseURL + "teachers_flashcards")
@@ -157,27 +138,22 @@ class App extends Component {
 
   deleteCard = id => {
     console.log("delete card", id, this.state);
-    return (
-      fetch(databaseURL + "teachers_flashcards/" + id, { method: "DELETE" })
-        .then(response => response.text())
-        .then(response => {
-          console.log(response)
-          // this.setState({ myFlashCards: response.teachers_flashcards });
-        })
-        .then(this.initData)
-        .catch(error => console.error)
-    );
+    return fetch(databaseURL + "teachers_flashcards/" + id, { method: "DELETE" })
+      .then(response => response.text())
+      .then(response => {})
+      .then(this.initData)
+      .catch(error => console.error);
   };
 
   componentDidMount = () => {
-    this.initData()
+    this.initData();
   };
 
   initData = () => {
     return this.getFlashcardData()
       .then(this.randomizer)
       .then(this.getMyFlashcardData);
-}
+  };
 
   randomizer = () => {
     const card = this.state.cards[parseInt(Math.random() * this.state.cards.length)];
@@ -206,12 +182,6 @@ class App extends Component {
       .then(() => this.setState({ definitionIsHidden: !this.state.definitionIsHidden }))
       .then(this.getMyFlashcardData);
   };
-
-
-  onDropdownSelected(e) {
-    console.log("THE VAL", e.target.value);
-    //here you will see the current selected value of the select input
-  }
 
   render() {
     const popover = (
@@ -270,31 +240,10 @@ class App extends Component {
         </OverlayTrigger>
       </div>
     );
-    return <div className="App">
+    return (
+      <div className="App">
         <h1 className="App-title">Brainiac Cards</h1>
 
-        {/* Attempting to work with user names and custon saved card sets */}
-        {/* <Modal show={this.state.showUserEnterName} onHide={this.closeUserEnterName}>
-          <Modal.Body>
-            <p>Testing ShowUserEnterName</p>
-            <FormGroup show={this.state.showUserEnterName} onHide={this.closeUserEnterName}>
-              <InputGroup>
-                <FormControl type="text" />
-                <DropdownButton componentClass={InputGroup.Button} id="input-dropdown-addon" title="Add Name">
-                  <MenuItem type="select" onChange={this.onDropdownSelected} label="Multiple Select" multiple>
-                    {this.user ? <MenuItem eventKey="x">{this.user.username}</MenuItem> : <MenuItem eventKey="y">Some text</MenuItem>}{" "}
-                  </MenuItem>{" "}
-                </DropdownButton>
-              </InputGroup>
-            </FormGroup>
-          </Modal.Body>
-        </Modal> */}
-
-        {/* Eventually turn buttons into clicakable images like the one below
-        <div>
-          {" "}
-          <img height="300px" className="btn-card" alt="Blank Flashcard" onClick={this.show100Flashcards} src={blankFlashCard} />
-        </div> */}
         <Button bsStyle="primary" bsSize="large" onClick={this.show100Flashcards}>
           100 Words Every High School Graduate Should Know
         </Button>
@@ -325,7 +274,8 @@ class App extends Component {
                   return b.level - a.level;
                 })
                 .map((item, i) => {
-                  return <ListGroupItem key={this.state.myFlashCards[i].id}>
+                  return (
+                    <ListGroupItem key={this.state.myFlashCards[i].id}>
                       <h3>Word: {this.state.myFlashCards[i].word}</h3>
                       <h4>
                         User Rated Difficulty:{" "}
@@ -334,12 +284,11 @@ class App extends Component {
                       <Button bsStyle="danger" onClick={this.deleteCard.bind(this, this.state.myFlashCards[i].id)}>
                         Delete Card
                       </Button>
-                    </ListGroupItem>;
+                    </ListGroupItem>
+                  );
                 })}
             </ListGroup>
-            <Button onClick={
-              this.closeMyFlashcards
-              }>Close My Flashcards</Button>
+            <Button onClick={this.closeMyFlashcards}>Close My Flashcards</Button>
           </Modal.Body>
         </Modal>
 
@@ -349,17 +298,17 @@ class App extends Component {
             <h1 className="Vocab-Word">My Flashcards</h1>
             <Carousel interval={2500}>
               {this.state.myFlashCards.map((item, i) => {
-                return <Carousel.Item key={this.state.myFlashCards[i].id}>
+                return (
+                  <Carousel.Item key={this.state.myFlashCards[i].id}>
                     <img alt="900x500" src={blankCard} />
                     <Carousel.Caption>
                       <h1>Word: {this.state.myFlashCards[i].word}</h1>
                       <h3>Definition: {this.state.myFlashCards[i].definition}</h3>
                       <h3>{this.state.myFlashCards[i].synonyms ? `Synonym: ${this.state.myFlashCards[i].synonyms}` : "No synonym"}</h3>
-                      <h3>
-                        {this.state.myFlashCards[i].partOfSpeech ? `Part of Speech: ${this.state.myFlashCards[i].partOfSpeech}` : "Not Listed"}
-                      </h3>
+                      <h3>{this.state.myFlashCards[i].partOfSpeech ? `Part of Speech: ${this.state.myFlashCards[i].partOfSpeech}` : "Not Listed"}</h3>
                     </Carousel.Caption>
-                  </Carousel.Item>;
+                  </Carousel.Item>
+                );
               })}
             </Carousel>
             <Button onClick={this.closeMyPracticeFlashcards}>Close My Flashcards</Button>
@@ -377,16 +326,19 @@ class App extends Component {
             <CardViewer card={this.state.current} />
             <hr />
             <h4>
-              Want to see a hint? There is a <OverlayTrigger overlay={popover}>
+              Want to see a hint? There is a{" "}
+              <OverlayTrigger overlay={popover}>
                 <a href="#popover" className="">
                   synonym
                 </a>
-              </OverlayTrigger> here
+              </OverlayTrigger>{" "}
+              here
             </h4>
             <div>
               <Button bsStyle="primary" onClick={this.toggleDefinition.bind(this)}>
                 Reveal Definition
-              </Button> {!this.state.definitionIsHidden && <Definition />}
+              </Button>{" "}
+              {!this.state.definitionIsHidden && <Definition />}
             </div>
             <Button onClick={this.close100Flashcards}>Close</Button>
           </Modal.Body>
@@ -400,9 +352,9 @@ class App extends Component {
             <Button onClick={this.hideMegaUpload}>Close And Save Your Flashcards</Button>
           </div>
         </Modal>
-      </div>;
+      </div>
+    );
   }
 }
-
 
 export default App;
