@@ -7,6 +7,8 @@ import CardViewer from "./components/CardViewer";
 import NameForm from "./components/EnterWordsForm";
 import TableUploadComponent from "./components/UploadSheetData";
 var databaseURL = "https://sleepy-sea-27116.herokuapp.com/";
+
+
 // const actionReducers = combineReducers({ changes });
 // const reduxStore = createStore(actionReducers);
 

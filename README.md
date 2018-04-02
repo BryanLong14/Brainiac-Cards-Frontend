@@ -26,5 +26,7 @@ React / JavaScript / HTML / CSS / Express / Node.js / Knex & PostgreSQL (Develop
 ## Author
 BryanLong: https://github.com/bryanlong14
 
-# License
+## License
 MIT
+
+# Local Installation Instructions
