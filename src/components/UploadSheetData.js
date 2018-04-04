@@ -26,7 +26,6 @@ const reduxStore = createStore(actionReducers);
 class ActionList extends React.Component {
   postToMyCards = event => {
     event.preventDefault();
-    console.log(this);
     fetch("https://sleepy-sea-27116.herokuapp.com/teachers_flashcards/", {
       method: "POST",
       body: JSON.stringify({
@@ -47,12 +46,6 @@ class ActionList extends React.Component {
 
   render() {
     let result = null;
-    console.log("this props actions list :", this.props.actionList);
-    console.log(
-      this.props.actionList.map(function(action) {
-        return <li>word={action.word}</li>, <li>definition={action.definition}</li>, <li>synonym={action.synonym}</li>;
-      })
-    );
     if (this.props.actionList.length === 0) {
       result = <div className="empty">Enter your vocabulary words in the spreadsheet above!</div>;
     } else {

@@ -8,7 +8,6 @@ import NameForm from "./components/EnterWordsForm";
 import TableUploadComponent from "./components/UploadSheetData";
 var databaseURL = "https://sleepy-sea-27116.herokuapp.com/";
 
-
 // const actionReducers = combineReducers({ changes });
 // const reduxStore = createStore(actionReducers);
 
@@ -90,7 +89,6 @@ class App extends Component {
   };
 
   showUserEnterName = () => {
-    console.log(this);
     this.setState({ showUserNames: true });
     this.getUserData();
   };
@@ -139,7 +137,6 @@ class App extends Component {
   };
 
   deleteCard = id => {
-    console.log("delete card", id, this.state);
     return fetch(databaseURL + "teachers_flashcards/" + id, { method: "DELETE" })
       .then(response => response.text())
       .then(response => {})
@@ -164,7 +161,6 @@ class App extends Component {
 
   postToUserCards = event => {
     event.preventDefault();
-    console.log(this.state);
     fetch(databaseURL + "teachers_flashcards/", {
       method: "POST",
       body: JSON.stringify({
@@ -232,7 +228,6 @@ class App extends Component {
             value="3"
             bsStyle="primary"
             onClick={event => {
-              console.log(event.target.value);
               this.randomizer();
               this.postToUserCards(event);
             }}

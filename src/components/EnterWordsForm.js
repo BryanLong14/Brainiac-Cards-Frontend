@@ -40,7 +40,6 @@ class NameForm extends React.Component {
 
   postToMyCards = event => {
     event.preventDefault();
-    console.log(this);
     fetch("https://sleepy-sea-27116.herokuapp.com/teachers_flashcards/", {
       method: "POST",
       body: JSON.stringify({
