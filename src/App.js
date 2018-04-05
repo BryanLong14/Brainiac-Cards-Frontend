@@ -8,28 +8,6 @@ import NameForm from "./components/EnterWordsForm";
 import TableUploadComponent from "./components/UploadSheetData";
 var databaseURL = "https://sleepy-sea-27116.herokuapp.com/";
 
-// const actionReducers = combineReducers({ changes });
-// const reduxStore = createStore(actionReducers);
-
-// const changes = (state = [], action) => {
-//   switch (action.type) {
-//     case "change":
-//       return [
-//         ...state,
-//         {
-//           id: action.id,
-//           row: action.row,
-//           column: action.column,
-//           oldValue: action.oldValue,
-//           newValue: action.newValue,
-//           type: action.type
-//         }
-//       ];
-//     default:
-//       return state;
-//   }
-// };
-
 class App extends Component {
   constructor(props) {
     super(props);
